@@ -64,6 +64,10 @@ export default class Product {
     });
   }
 
+  public getUuid() {
+    return this.value.uuid.getValue();
+  }
+
   public get sku() {
     return this.value.sku;
   }
