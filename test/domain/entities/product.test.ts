@@ -1,4 +1,6 @@
+import { Rules } from "../../../src/common/enums/rules";
 import Product from "../../../src/domain/entities/product";
+import InvalidArgumentException from "../../../src/domain/exceptions/validation/invalid-argument";
 
 describe('Test Product Entity', () => {
   test('Should create entity', () => {
@@ -38,5 +40,24 @@ describe('Test Product Entity', () => {
     expect(product.name).toBe(restoreProps.name);
     expect(product.price).toBe(restoreProps.price);
     expect(product.description).toBe(restoreProps.description);
+  });
+
+  test('Should not create entity with a invalid prive', () => {
+    try {
+      const createProps = {
+        description: 'Descricao',
+        productCode: 1,
+        sectorCode: 'AL',
+        brandCode: 'MAT',
+        price: -10,
+        name: 'Arroz'
+      };
+
+      Product.create(createProps);
+    } catch (error) {
+      expect(error instanceof InvalidArgumentException).toBeTruthy();
+      expect((error as InvalidArgumentException).field).toBe('price');
+      expect((error as InvalidArgumentException).rule).toBe(Rules.invalidSize);
+    }
   });
 });
