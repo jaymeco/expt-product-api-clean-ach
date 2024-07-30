@@ -60,4 +60,42 @@ describe('Test Product Entity', () => {
       expect((error as InvalidArgumentException).rule).toBe(Rules.invalidSize);
     }
   });
+
+  test('Should not create entity with a invalid sector code', () => {
+    try {
+      const createProps = {
+        description: 'Descricao',
+        productCode: 1,
+        sectorCode: 'ALLL',
+        brandCode: 'MAT',
+        price: 100,
+        name: 'Arroz'
+      };
+
+      Product.create(createProps);
+    } catch (error) {
+      expect(error instanceof InvalidArgumentException).toBeTruthy();
+      expect((error as InvalidArgumentException).field).toBe('sectorCode');
+      expect((error as InvalidArgumentException).rule).toBe(Rules.invalidSize);
+    }
+  });
+
+  test('Should not create entity with a invalid brand code', () => {
+    try {
+      const createProps = {
+        description: 'Descricao',
+        productCode: 1,
+        sectorCode: 'AL',
+        brandCode: 'MATMAT',
+        price: 100,
+        name: 'Arroz'
+      };
+
+      Product.create(createProps);
+    } catch (error) {
+      expect(error instanceof InvalidArgumentException).toBeTruthy();
+      expect((error as InvalidArgumentException).field).toBe('brandCode');
+      expect((error as InvalidArgumentException).rule).toBe(Rules.invalidSize);
+    }
+  });
 });
