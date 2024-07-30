@@ -20,7 +20,7 @@ export default class Sku {
       throw new InvalidArgumentException('brandCode', Rules.invalidSize);
     }
     if (sectorCode.length !== 2) {
-      throw new InvalidArgumentException('sectoCode', Rules.invalidSize);
+      throw new InvalidArgumentException('sectorCode', Rules.invalidSize);
     }
 
     return new Sku(brandCode, sectorCode, productCode);
