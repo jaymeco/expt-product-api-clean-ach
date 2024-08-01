@@ -1,8 +1,9 @@
+import BrandCode from "../value-objects/BrandCode";
 import Uuid from "../value-objects/uuid";
 
 type Value = {
   description: string;
-  code: string;
+  code: BrandCode;
   id: number | null;
   uuid: Uuid;
 }
@@ -15,11 +16,20 @@ export default class Brand {
     return new Brand({
       uuid: Uuid.create(),
       description,
-      code,
+      code: BrandCode.create(code),
       id: null,
     });
   }
-  
+
+  public static restore(uuid: string, id: number, description: string, code: string) {
+    return new Brand({
+      uuid: Uuid.restore(uuid),
+      description,
+      code: BrandCode.restore(code),
+      id,
+    });
+  }
+
   public getUuid() {
     return this.value.uuid.getValue();
   }
@@ -29,7 +39,7 @@ export default class Brand {
   }
 
   public get code() {
-    return this.value.code
+    return this.value.code.getValue();
   }
 
   public isNew() {
