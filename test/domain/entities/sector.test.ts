@@ -14,4 +14,20 @@ describe('Tests for Sector entity', () => {
     expect(sector.code).toBe(props.code);
     expect(sector.description).toBe(props.description);
   });
+
+  test('Should restore entity', () => {
+    const props = {
+      id: 1,
+      uuid: '',
+      code: 'IN',
+      description: 'Informática',
+    };
+
+    const sector = Sector.restore(props.id, props.uuid, props.code, props.description);
+
+    expect(sector.isNew()).toBeFalsy();
+    expect(sector.getUuid()).toBe(props.uuid);
+    expect(sector.code).toBe(props.code);
+    expect(sector.description).toBe(props.description);
+  });
 });
