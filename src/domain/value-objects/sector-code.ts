@@ -6,6 +6,10 @@ export class SectorCode {
     return new SectorCode(code);
   }
 
+  public static restore(code: string) {
+    return new SectorCode(code);
+  }
+
   public getValue() {
     return this.value;
   }
