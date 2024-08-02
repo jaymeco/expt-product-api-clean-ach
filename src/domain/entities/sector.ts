@@ -20,6 +20,15 @@ export default class Sector {
     });
   }
 
+  public static restore(id: number, uuid: string, code: string, description: string) {
+    return new Sector({
+      uuid: Uuid.restore(uuid),
+      code: SectorCode.restore(code),
+      description,
+      id,
+    });
+  }
+
   public getUuid() {
     return this.value.uuid.getValue();
   }
